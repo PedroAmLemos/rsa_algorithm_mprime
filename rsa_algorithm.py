@@ -1,0 +1,15 @@
+import rsa_functions
+prime_list = rsa_functions.get_uset_inputs()
+message = rsa_functions.get_message()
+n = rsa_functions.calculate_n(prime_list)
+if message > n:
+    print(f'message should follow the rule message < N, in this case\n\t{message} >= {n}')
+    exit()
+phi = rsa_functions.calculate_phi(prime_list)
+e = rsa_functions.calculate_e(phi)
+d = rsa_functions.calculate_modular_inverse(e, phi)
+c = rsa_functions.calculate_modular_power(message, e, n)
+m = rsa_functions.calculate_modular_power(c, d, n)
+print(f'*******************************\nThe public key is: {e, n}')
+print(f'The private key is: {d, n}')
+print(f'*******************************\nencrypted message: {c}\ndecrypted message: {m}')
